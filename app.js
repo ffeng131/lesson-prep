@@ -11,7 +11,10 @@
 
   const DATA = window.MOCK_DATA;
   const state = {
-    currentGroupId: "g1"
+    currentGroupId: "g1",
+    currentSchoolId: "s1",
+    currentCampus: "演示校区",
+    currentPlanId: "p1"
   };
 
   /* ---------- 状态标识渲染 ---------- */
@@ -98,6 +101,91 @@
     return path;
   }
 
+  /* ---------- 学校/校区渲染 ---------- */
+  function renderSchoolHeader() {
+    const school = DATA.schools.find(s => s.id === state.currentSchoolId) || DATA.schools[0];
+    $("#schoolText").textContent = `${school.name}（${state.currentCampus}）`;
+  }
+
+  /* ---------- 教学计划渲染 ---------- */
+  function renderPlanHeader() {
+    const plan = DATA.teachingPlans.find(p => p.id === state.currentPlanId) || DATA.teachingPlans[0];
+    $("#planName").textContent = plan.name;
+    
+    const statusEl = $("#planStatus");
+    statusEl.textContent = plan.status;
+    statusEl.className = "plan-status";
+    
+    if (plan.status === "进行中") {
+      statusEl.classList.add("status-progress");
+    } else if (plan.status === "未开始") {
+      statusEl.classList.add("status-pending");
+    } else if (plan.status === "已结束") {
+      statusEl.classList.add("status-done");
+    }
+  }
+
+  /* ---------- 学校/校区切换弹层 ---------- */
+  function renderSchoolList() {
+    const container = $("#schoolList");
+    let html = "";
+    
+    DATA.schools.forEach(school => {
+      html += `
+        <div class="school-section">
+          <div class="school-section-title">${school.name}</div>
+          <div class="campus-list">
+            ${school.campuses.map(campus => {
+              const isActive = state.currentSchoolId === school.id && state.currentCampus === campus;
+              return `
+                <div class="campus-item ${isActive ? "active" : ""}" data-school="${school.id}" data-campus="${campus}">
+                  ${campus}
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </div>
+      `;
+    });
+    
+    container.innerHTML = html;
+
+    $$(".campus-item", container).forEach(el => {
+      el.addEventListener("click", () => {
+        state.currentSchoolId = el.getAttribute("data-school");
+        state.currentCampus = el.getAttribute("data-campus");
+        renderSchoolHeader();
+        closeModal();
+      });
+    });
+  }
+
+  /* ---------- 教学计划切换弹层 ---------- */
+  function renderPlanList() {
+    const container = $("#planList");
+    const current = state.currentPlanId;
+
+    container.innerHTML = DATA.teachingPlans.map(plan => {
+      const isActive = plan.id === current;
+      const statusClass = plan.status === "进行中" ? "status-progress" : 
+                         plan.status === "未开始" ? "status-pending" : "status-done";
+      return `
+        <div class="plan-item ${isActive ? "active" : ""}" data-id="${plan.id}">
+          <div class="plan-item-name">${plan.name}</div>
+          <span class="plan-item-status ${statusClass}">${plan.status}</span>
+        </div>
+      `;
+    }).join("");
+
+    $$(".plan-item", container).forEach(el => {
+      el.addEventListener("click", () => {
+        state.currentPlanId = el.getAttribute("data-id");
+        renderPlanHeader();
+        closeModal();
+      });
+    });
+  }
+
   /* ---------- 备课组头部渲染 ---------- */
   function renderGroupHeader() {
     const group = DATA.groups.find(g => g.id === state.currentGroupId) || DATA.groups[0];
@@ -152,17 +240,36 @@
     });
   }
 
-  function openModal() {
-    renderGroupList();
-    $("#modalGroup").classList.add("show");
+  function openModal(type) {
+    if (type === "school") {
+      renderSchoolList();
+      $("#modalSchool").classList.add("show");
+    } else if (type === "plan") {
+      renderPlanList();
+      $("#modalPlan").classList.add("show");
+    } else {
+      renderGroupList();
+      $("#modalGroup").classList.add("show");
+    }
   }
   function closeModal() {
+    $("#modalSchool").classList.remove("show");
+    $("#modalPlan").classList.remove("show");
     $("#modalGroup").classList.remove("show");
   }
 
   /* ---------- 事件绑定 ---------- */
   function bindEvents() {
-    $("#btnGroupSwitcher").addEventListener("click", openModal);
+    $("#btnSchoolSwitcher").addEventListener("click", () => openModal("school"));
+    $("#btnPlanSwitcher").addEventListener("click", () => openModal("plan"));
+    $("#btnGroupSwitcher").addEventListener("click", () => openModal("group"));
+    
+    $("#modalSchool .modal-mask").addEventListener("click", closeModal);
+    $("#modalSchool [data-close]").addEventListener("click", closeModal);
+    
+    $("#modalPlan .modal-mask").addEventListener("click", closeModal);
+    $("#modalPlan [data-close]").addEventListener("click", closeModal);
+    
     $("#modalGroup .modal-mask").addEventListener("click", closeModal);
     $("#modalGroup [data-close]").addEventListener("click", closeModal);
 
@@ -176,10 +283,15 @@
 
   /* ---------- 初始化 ---------- */
   function init() {
-    // 支持从 URL 指定 groupId
+    // 支持从 URL 指定参数
     const params = new URLSearchParams(location.search);
     if (params.get("groupId")) state.currentGroupId = params.get("groupId");
+    if (params.get("schoolId")) state.currentSchoolId = params.get("schoolId");
+    if (params.get("campus")) state.currentCampus = params.get("campus");
+    if (params.get("planId")) state.currentPlanId = params.get("planId");
 
+    renderSchoolHeader();
+    renderPlanHeader();
     renderGroupHeader();
     renderTree();
     bindEvents();

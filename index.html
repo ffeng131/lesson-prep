@@ -18,6 +18,27 @@
     <span class="icon-btn placeholder"></span>
   </header>
 
+  <!-- 学校/校区选择行 -->
+  <section class="school-row-fixed" id="schoolRow">
+    <div class="school-row-inner">
+      <button class="school-switcher" id="btnSchoolSwitcher">
+        <span class="school-text" id="schoolText">产品演示学校（演示校区）</span>
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- 教学计划行 -->
+  <section class="plan-row-fixed" id="planRow">
+    <div class="plan-row-inner">
+      <button class="plan-switcher" id="btnPlanSwitcher">
+        <span class="plan-name" id="planName">初中语文2026下学期教研计划~</span>
+        <span class="plan-status" id="planStatus">进行中</span>
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
   <!-- 主体 -->
     <!-- 固定：备课组行 -->
   <section class="group-row-fixed" id="groupRow">
@@ -58,6 +79,38 @@
       </section>
     </div>
   </main>
+
+  <!-- 学校/校区切换弹层 -->
+  <div class="modal" id="modalSchool" aria-hidden="true">
+    <div class="modal-mask"></div>
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <h3>选择学校及校区</h3>
+        <button class="icon-btn" data-close>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="schoolList">
+        <!-- JS 渲染 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 教学计划切换弹层 -->
+  <div class="modal" id="modalPlan" aria-hidden="true">
+    <div class="modal-mask"></div>
+    <div class="modal-sheet">
+      <div class="modal-head">
+        <h3>选择教学计划</h3>
+        <button class="icon-btn" data-close>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="planList">
+        <!-- JS 渲染 -->
+      </div>
+    </div>
+  </div>
 
   <!-- 备课组切换弹层 -->
   <div class="modal" id="modalGroup" aria-hidden="true">

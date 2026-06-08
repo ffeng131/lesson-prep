@@ -5,6 +5,20 @@
 window.MOCK_DATA = {
   currentUser: { id: "u1", name: "冯佳华", avatar: "冯" },
 
+  // 学校及校区数据
+  schools: [
+    { id: "s1", name: "产品演示学校", campuses: ["演示校区", "东校区", "西校区"] },
+    { id: "s2", name: "第一实验中学", campuses: ["本部", "南校区"] },
+    { id: "s3", name: "第二中学", campuses: ["主校区"] }
+  ],
+
+  // 教学计划数据
+  teachingPlans: [
+    { id: "p1", name: "初中语文2026下学期教研计划~", status: "进行中" },
+    { id: "p2", name: "初中语文2026上学期教研计划", status: "已结束" },
+    { id: "p3", name: "初中语文2027学年教研计划", status: "未开始" }
+  ],
+
   teachers: [
     { id: "u1", name: "冯佳华", avatar: "冯", isMe: true },
     { id: "u2", name: "李明",   avatar: "李", isMe: false },

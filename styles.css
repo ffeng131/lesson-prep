@@ -89,11 +89,105 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
   display: flex;
   flex-direction: column;
   padding: 12px;
-  padding-top: 104px;
+  padding-top: 216px;
   max-width: 720px;
   margin: 0 auto;
   width: 100%;
   min-height: 0;
+}
+
+/* 学校选择行 */
+.school-row-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 56px;
+  z-index: 10;
+  padding: 8px 12px;
+}
+.school-row-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.school-switcher {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(99, 102, 241, 0.06);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--text-sub);
+}
+.school-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+.school-switcher svg {
+  flex-shrink: 0;
+  color: var(--text-light);
+}
+
+/* 教学计划行 */
+.plan-row-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 102px;
+  z-index: 10;
+  padding: 0 12px 8px;
+}
+.plan-row-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.plan-switcher {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+.plan-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+.plan-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin: 0 8px;
+  flex-shrink: 0;
+}
+.plan-status.status-progress {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+.plan-status.status-pending {
+  background: rgba(156, 163, 175, 0.1);
+  color: #6b7280;
+}
+.plan-status.status-done {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+.plan-switcher svg {
+  flex-shrink: 0;
+  color: var(--text-light);
 }
 
 /* 固定的备课组行 */
@@ -101,9 +195,9 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
   position: fixed;
   left: 0;
   right: 0;
-  top: 56px;
+  top: 148px;
   z-index: 10;
-  padding: 10px 12px;
+  padding: 0 12px 8px;
 }
 .group-row-inner {
   max-width: 720px;
@@ -405,6 +499,69 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
 }
 .group-item-tag.host { background: #fef3c7; color: #b45309; }
 .group-item-tag.current { background: var(--brand); color: #fff; }
+
+/* ---------- 学校选择弹层样式 ---------- */
+.school-section {
+  padding: 8px 0;
+}
+.school-section + .school-section {
+  border-top: 1px solid #f3f4f6;
+}
+.school-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  padding: 8px 10px;
+}
+.campus-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 10px;
+}
+.campus-item {
+  padding: 10px 16px;
+  background: #f9fafb;
+  border-radius: 20px;
+  font-size: 14px;
+  color: var(--text-sub);
+  border: 2px solid transparent;
+}
+.campus-item.active {
+  background: var(--brand-light);
+  color: var(--brand-deep);
+  border-color: var(--brand);
+}
+
+/* ---------- 教学计划选择弹层样式 ---------- */
+.plan-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.plan-item:last-child {
+  border-bottom: none;
+}
+.plan-item.active {
+  background: var(--brand-light);
+}
+.plan-item-name {
+  flex: 1;
+  font-size: 15px;
+  color: var(--text-main);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.plan-item-status {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
 
 /* ============================================================
  *  详情页样式
