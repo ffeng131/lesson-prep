@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#4f46e5" />
+  <title>教学内容 - 资源上传</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-detail">
+
+  <!-- 顶部导航 -->
+  <header class="app-header">
+    <button class="icon-btn" id="btnBack" aria-label="返回">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <h1 class="header-title" id="detailTitle">教学内容</h1>
+    <span class="icon-btn placeholder"></span>
+  </header>
+
+  <!-- 双 Tab 切换（移到顶部） -->
+  <section class="tabs-section-top">
+    <div class="tab-bar">
+      <button class="tab-item active" data-tab="group" role="tab">
+        <span class="tab-label">集备资源</span>
+      </button>
+      <button class="tab-item" data-tab="personal" role="tab">
+        <span class="tab-label">个备资源</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- 路径信息 -->
+  <section class="detail-path" id="detailPath">
+    <!-- JS 渲染 -->
+  </section>
+
+  <!-- 主内容区 -->
+  <main class="app-main">
+    <!-- 集备资源内容 -->
+    <div class="tab-content active" id="tabGroup">
+      <div class="tab-info-bar">
+        <span class="info-host">主备人：<b id="hostName">冯佳华</b></span>
+        <div class="resource-types" id="resourceTypes">
+          <!-- JS 渲染资源类型状态 -->
+        </div>
+      </div>
+
+      <div class="resource-list" id="groupResources">
+        <!-- JS 渲染 -->
+      </div>
+
+      <div class="upload-area" id="groupUploadArea">
+        <label class="upload-dropzone">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <span id="groupUploadText">上传资源（还可上传 7 / 10）</span>
+          <input type="file" multiple hidden id="fileGroup" />
+        </label>
+      </div>
+
+      <div class="upload-progress-list" id="groupProgress"></div>
+    </div>
+
+    <!-- 个备资源内容 -->
+    <div class="tab-content" id="tabPersonal">
+      <div class="teacher-scroll" id="teacherScroll">
+        <!-- JS 渲染教师头像列表 -->
+      </div>
+
+      <div class="resource-list" id="personalResources">
+        <!-- JS 渲染 -->
+      </div>
+
+      <div class="upload-area" id="personalUploadArea">
+        <label class="upload-dropzone">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <span id="personalUploadText">上传资源（还可上传 8 / 10）</span>
+          <input type="file" multiple hidden id="filePersonal" />
+        </label>
+      </div>
+
+      <div class="upload-progress-list" id="personalProgress"></div>
+    </div>
+  </main>
+
+  <!-- 底部：完成集备按钮（吸底固定） -->
+  <footer class="bottom-bar" id="bottomBar">
+    <button class="btn-complete" id="btnComplete">完成集备</button>
+  </footer>
+
+  <!-- 操作菜单弹层 -->
+  <div class="modal" id="modalMenu" aria-hidden="true">
+    <div class="modal-mask"></div>
+    <div class="modal-menu">
+      <div class="menu-item" data-action="edit">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>修改资源类型</span>
+      </div>
+      <div class="menu-item" data-action="rename">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>重命名</span>
+      </div>
+      <div class="menu-item" data-action="download">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>下载</span>
+      </div>
+      <div class="menu-item menu-danger" data-action="delete">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 7h12M9 7V4h6v3m-8 0l1 12h10l1-12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>删除</span>
+      </div>
+      <div class="menu-item menu-cancel">取消</div>
+    </div>
+  </div>
+
+  <!-- 修改资源类型弹窗 -->
+  <div class="modal" id="modalEditType" aria-hidden="true">
+    <div class="modal-mask"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>修改资源类型</h3>
+        <button class="icon-btn" data-close>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="type-grid" id="typeGrid">
+          <!-- JS 渲染类型列表 -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" data-close>取消</button>
+        <button class="btn-confirm" id="btnConfirmType">确定</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 重命名弹窗 -->
+  <div class="modal" id="modalRename" aria-hidden="true">
+    <div class="modal-mask"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>重命名</h3>
+        <button class="icon-btn" data-close>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="rename-input" id="renameInput" placeholder="请输入新名称" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" data-close>取消</button>
+        <button class="btn-confirm" id="btnConfirmRename">确定</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 完成集备确认弹窗 -->
+  <div class="modal" id="modalComplete" aria-hidden="true">
+    <div class="modal-mask"></div>
+    <div class="modal-dialog modal-complete">
+      <div class="modal-header">
+        <h3>完成集备</h3>
+        <button class="icon-btn" data-close>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="confirm-text">是否确认完成集备？当您主备的内容全部提交并定稿完毕时，再点击"完成集备"哦！</p>
+        <div class="resource-status-list" id="resourceStatusList">
+          <!-- JS 渲染资源状态 -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" data-close>取消</button>
+        <button class="btn-confirm btn-complete-modal" id="btnConfirmComplete">完成集备</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-hidden="true"></div>
+
+  <script src="data.js"></script>
+  <script src="detail.js"></script>
+</body>
+</html>
