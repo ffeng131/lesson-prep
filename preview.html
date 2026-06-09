@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#4f46e5" />
+  <title>资源预览</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-preview">
+
+  <!-- 顶部导航 -->
+  <header class="app-header">
+    <button class="icon-btn" id="btnBack" aria-label="返回">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <h1 class="header-title" id="previewTitle">资源预览</h1>
+    <span class="icon-btn placeholder"></span>
+  </header>
+
+  <!-- 资源信息 -->
+  <section class="preview-info-card" id="previewInfo">
+    <!-- JS 渲染 -->
+  </section>
+
+  <!-- 预览区域 -->
+  <main class="preview-main">
+    <div class="preview-content">
+      <!-- 模拟文档预览 -->
+      <div class="preview-doc-area" id="previewArea">
+        <div class="preview-placeholder">
+          <div class="preview-icon">
+            <svg viewBox="0 0 24 24" width="48" height="48"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="10" y1="9" x2="8" y2="9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <p class="preview-text">资源预览区域</p>
+          <p class="preview-subtext">点击下方按钮打开评论区</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 底部按钮 -->
+  <footer class="preview-bottom-bar">
+    <button class="btn-open-comment" id="btnOpenComment">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>打开评论区</span>
+      <span class="comment-count" id="commentCount">0</span>
+    </button>
+  </footer>
+
+  <!-- 评论区弹层 -->
+  <div class="modal" id="modalComment" aria-hidden="true">
+    <div class="modal-mask"></div>
+    <div class="modal-comment-sheet">
+      <div class="comment-sheet-head">
+        <h3>评论区</h3>
+        <button class="icon-btn" data-close>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="comment-list" id="commentList">
+        <!-- JS 渲染评论列表 -->
+      </div>
+      <div class="comment-input-area">
+        <input type="text" class="comment-input" id="commentInput" placeholder="输入评论..." />
+        <button class="btn-send" id="btnSendComment">发送</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-hidden="true"></div>
+
+  <script src="data.js"></script>
+  <script src="preview.js"></script>
+</body>
+</html>

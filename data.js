@@ -107,6 +107,25 @@ window.MOCK_DATA = {
     ]
   },
 
+  // 评论数据
+  comments: {
+    "r1": [
+      { id: "c1", userId: "u2", userName: "李明", avatar: "李", content: "教案设计很详细，教学目标清晰，环节安排合理。", time: "2026-06-05 14:30" },
+      { id: "c2", userId: "u3", userName: "王芳", avatar: "王", content: "建议在导入环节增加一些互动活动，让学生更快进入学习状态。", time: "2026-06-05 15:20" },
+      { id: "c3", userId: "u1", userName: "冯佳华", avatar: "冯", content: "感谢建议，我会调整导入环节的设计。", time: "2026-06-06 09:15" }
+    ],
+    "r2": [
+      { id: "c4", userId: "u2", userName: "李明", avatar: "李", content: "PPT制作精美，图片素材丰富。", time: "2026-06-05 16:00" },
+      { id: "c5", userId: "u4", userName: "张丽", avatar: "张", content: "动画效果可以再简化一些，避免分散学生注意力。", time: "2026-06-05 17:30" }
+    ],
+    "r3": [],
+    "pr1": [
+      { id: "c6", userId: "u2", userName: "李明", avatar: "李", content: "个人教案很有特色，值得借鉴。", time: "2026-06-06 10:00" }
+    ],
+    "pr2": [],
+    "default": []
+  },
+
   resources: {
     "u1-p1": {
       hostName: "冯佳华",

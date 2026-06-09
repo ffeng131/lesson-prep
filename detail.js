@@ -130,6 +130,31 @@
   }
 
   function bindGroupResourceActions() {
+    // 资源卡片点击跳转到预览页
+    $$(".resource-card", $("#groupResources")).forEach(card => {
+      card.addEventListener("click", e => {
+        // 如果点击的是操作按钮，不跳转
+        if (e.target.closest(".btn-mini") || e.target.closest(".btn-more")) return;
+        
+        const resourceId = card.getAttribute("data-id");
+        const res = getResourceData();
+        const item = res.group.find(r => r.id === resourceId);
+        if (item) {
+          const qs = new URLSearchParams({
+            resourceId: item.id,
+            resourceName: item.name,
+            resourceType: item.type,
+            resourceTag: item.tag,
+            resourceSize: item.size,
+            nodeId: state.nodeId,
+            kind: "group"
+          }).toString();
+          window.location.href = `preview.html?${qs}`;
+        }
+      });
+    });
+
+    // 更多操作按钮
     $$(".btn-more", $("#groupResources")).forEach(btn => {
       btn.addEventListener("click", e => {
         e.stopPropagation();
@@ -140,6 +165,32 @@
   }
 
   function bindPersonalResourceActions() {
+    // 资源卡片点击跳转到预览页
+    $$(".resource-card", $("#personalResources")).forEach(card => {
+      card.addEventListener("click", e => {
+        // 如果点击的是操作按钮，不跳转
+        if (e.target.closest(".btn-mini") || e.target.closest(".btn-more")) return;
+        
+        const resourceId = card.getAttribute("data-id");
+        const res = getResourceData();
+        const items = res.personal && res.personal[state.currentTeacherId] || [];
+        const item = items.find(r => r.id === resourceId);
+        if (item) {
+          const qs = new URLSearchParams({
+            resourceId: item.id,
+            resourceName: item.name,
+            resourceType: item.type,
+            resourceTag: item.tag,
+            resourceSize: item.size,
+            nodeId: state.nodeId,
+            kind: "personal"
+          }).toString();
+          window.location.href = `preview.html?${qs}`;
+        }
+      });
+    });
+
+    // 更多操作按钮
     $$(".btn-more", $("#personalResources")).forEach(btn => {
       btn.addEventListener("click", e => {
         e.stopPropagation();
