@@ -14,9 +14,9 @@ window.MOCK_DATA = {
 
   // 教学计划数据
   teachingPlans: [
-    { id: "p1", name: "初中语文2026下学期教研计划~", status: "进行中" },
-    { id: "p2", name: "初中语文2026上学期教研计划", status: "已结束" },
-    { id: "p3", name: "初中语文2027学年教研计划", status: "未开始" }
+    { id: "p1", stage: "小学", name: "25学年第二学期", status: "进行中" },
+    { id: "p2", stage: "小学", name: "25学年第一学期", status: "已结束" },
+    { id: "p3", stage: "小学", name: "26学年第二学期", status: "未开始" }
   ],
 
   teachers: [

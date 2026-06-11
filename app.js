@@ -124,7 +124,8 @@
   /* ---------- 教学计划渲染 ---------- */
   function renderPlanHeader() {
     const plan = DATA.teachingPlans.find(p => p.id === state.currentPlanId) || DATA.teachingPlans[0];
-    $("#planName").textContent = plan.name;
+    const displayName = plan.stage ? `${plan.stage}/${plan.name}` : plan.name;
+    $("#planName").textContent = displayName;
     
     const statusEl = $("#planStatus");
     statusEl.textContent = plan.status;
@@ -183,9 +184,10 @@
       const isActive = plan.id === current;
       const statusClass = plan.status === "进行中" ? "status-progress" : 
                          plan.status === "未开始" ? "status-pending" : "status-done";
+      const displayName = plan.stage ? `${plan.stage}/${plan.name}` : plan.name;
       return `
         <div class="plan-item ${isActive ? "active" : ""}" data-id="${plan.id}">
-          <div class="plan-item-name">${plan.name}</div>
+          <div class="plan-item-name">${displayName}</div>
           <span class="plan-item-status ${statusClass}">${plan.status}</span>
         </div>
       `;
