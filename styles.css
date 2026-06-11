@@ -1028,9 +1028,12 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
   font-size: 12px;
   color: var(--text-sub);
 }
-.btn-complete:disabled {
-  opacity: 0.5;
+.btn-complete:disabled,
+.btn-complete.disabled {
+  background: #d1d5db;
+  opacity: 1;
   cursor: not-allowed;
+  color: #fff;
 }
 
 /* ---------- 对话框弹窗样式 ---------- */

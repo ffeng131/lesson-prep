@@ -241,11 +241,9 @@
     const hasCourseware = groupResources.some(r => r.tag === "课件");
 
     if (hasLessonPlan && hasCourseware) {
-      btn.textContent = "更新集备";
       btn.disabled = false;
       btn.classList.remove("disabled");
     } else {
-      btn.textContent = "完成集备";
       btn.disabled = true;
       btn.classList.add("disabled");
     }
