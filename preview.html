@@ -62,8 +62,70 @@
         <!-- JS 渲染评论列表 -->
       </div>
       <div class="comment-input-area">
-        <input type="text" class="comment-input" id="commentInput" placeholder="输入评论..." />
+        <input type="text" class="comment-input" id="commentInput" placeholder="输入评论..." readonly />
         <button class="btn-send" id="btnSendComment">发送</button>
+      </div>
+      <!-- 模拟9键输入法键盘 -->
+      <div class="t9-keyboard" id="t9Keyboard">
+        <div class="t9-toolbar">
+          <span class="t9-toolbar-label">中文九键</span>
+          <button class="t9-toolbar-btn" id="t9CloseKb">收起</button>
+        </div>
+        <div class="t9-keys">
+          <div class="t9-row">
+            <button class="t9-key" data-chars="1">
+              <span class="t9-num">1</span>
+              <span class="t9-chars">,.</span>
+            </button>
+            <button class="t9-key" data-chars="abc">
+              <span class="t9-num">2</span>
+              <span class="t9-chars">ABC</span>
+            </button>
+            <button class="t9-key" data-chars="def">
+              <span class="t9-num">3</span>
+              <span class="t9-chars">DEF</span>
+            </button>
+          </div>
+          <div class="t9-row">
+            <button class="t9-key" data-chars="ghi">
+              <span class="t9-num">4</span>
+              <span class="t9-chars">GHI</span>
+            </button>
+            <button class="t9-key" data-chars="jkl">
+              <span class="t9-num">5</span>
+              <span class="t9-chars">JKL</span>
+            </button>
+            <button class="t9-key" data-chars="mno">
+              <span class="t9-num">6</span>
+              <span class="t9-chars">MNO</span>
+            </button>
+          </div>
+          <div class="t9-row">
+            <button class="t9-key" data-chars="pqrs">
+              <span class="t9-num">7</span>
+              <span class="t9-chars">PQRS</span>
+            </button>
+            <button class="t9-key" data-chars="tuv">
+              <span class="t9-num">8</span>
+              <span class="t9-chars">TUV</span>
+            </button>
+            <button class="t9-key" data-chars="wxyz">
+              <span class="t9-num">9</span>
+              <span class="t9-chars">WXYZ</span>
+            </button>
+          </div>
+          <div class="t9-row t9-bottom-row">
+            <button class="t9-key t9-func" id="t9Symbol">
+              <span class="t9-chars">符</span>
+            </button>
+            <button class="t9-key" data-chars=" ">
+              <span class="t9-chars">空格</span>
+            </button>
+            <button class="t9-key t9-func" id="t9Backspace">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="18" y1="9" x2="12" y2="15" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="9" x2="18" y2="15" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

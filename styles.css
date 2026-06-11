@@ -1416,3 +1416,138 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
   font-weight: 500;
 }
 .btn-send:active { opacity: 0.9; }
+
+/* ============================================================
+ *  9键输入法键盘
+ * ============================================================ */
+.t9-keyboard {
+  display: none;
+  flex-direction: column;
+  background: #d1d3d9;
+  padding: 0;
+  border-top: 1px solid #b8bac0;
+  animation: slideUpKeyboard 0.25s ease-out;
+}
+.t9-keyboard.show {
+  display: flex;
+}
+
+@keyframes slideUpKeyboard {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.t9-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: #e8e9ed;
+  border-bottom: 1px solid #c8cace;
+}
+.t9-toolbar-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+.t9-toolbar-btn {
+  font-size: 12px;
+  color: var(--brand);
+  padding: 2px 8px;
+}
+
+.t9-keys {
+  padding: 6px 4px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.t9-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.t9-key {
+  flex: 1;
+  max-width: 100px;
+  height: 46px;
+  border-radius: 6px;
+  background: #fff;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06);
+  transition: background 0.1s;
+  padding: 2px 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.t9-key:active {
+  background: #c8cace;
+  box-shadow: none;
+}
+.t9-num {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  line-height: 1.1;
+}
+.t9-chars {
+  font-size: 9px;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+/* 底行：符号、空格、删除 */
+.t9-bottom-row .t9-key {
+  background: #b8bac0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+}
+.t9-bottom-row .t9-key:active {
+  background: #a0a2a8;
+}
+.t9-bottom-row .t9-chars {
+  font-size: 13px;
+  color: #374151;
+}
+.t9-bottom-row .t9-key svg {
+  color: #374151;
+}
+
+/* 符号面板 */
+.t9-symbol-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 8px 4px;
+  justify-content: center;
+}
+.t9-symbol-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: #fff;
+  border: none;
+  font-size: 16px;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.12);
+}
+.t9-symbol-btn:active {
+  background: #c8cace;
+}
+
+/* 键盘弹出时推起评论区弹层 */
+.modal-comment-sheet.keyboard-up {
+  bottom: 0;
+}
+.modal-comment-sheet {
+  transition: transform 0.25s ease-out;
+}

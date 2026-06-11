@@ -175,13 +175,162 @@
       }
     });
 
-    // 输入框聚焦时滚动到底部
-    $("#commentInput").addEventListener("focus", () => {
-      setTimeout(() => {
-        const list = $("#commentList");
-        list.scrollTop = list.scrollHeight;
-      }, 300);
+    // ---- 9键键盘逻辑 ----
+    initT9Keyboard();
+  }
+
+  function initT9Keyboard() {
+    const keyboard = $("#t9Keyboard");
+    const input = $("#commentInput");
+    const sheet = $(".modal-comment-sheet");
+    if (!keyboard || !input) return;
+
+    let currentKey = null;   // 当前按下的键
+    let charIndex = 0;       // 当前键上的字符索引
+    let confirmTimer = null; // 确认计时器
+    let isSymbolMode = false;
+
+    function showKeyboard() {
+      keyboard.classList.add("show");
+    }
+
+    function hideKeyboard() {
+      confirmPending();
+      keyboard.classList.remove("show");
+      keyboard.querySelector(".t9-keys").style.display = "";
+      const symGrid = keyboard.querySelector(".t9-symbol-grid");
+      if (symGrid) symGrid.remove();
+      isSymbolMode = false;
+      const toolbarLabel = keyboard.querySelector(".t9-toolbar-label");
+      if (toolbarLabel) toolbarLabel.textContent = "中文九键";
+    }
+
+    function confirmPending() {
+      if (currentKey !== null) {
+        const chars = currentKey;
+        const ch = chars[charIndex % chars.length];
+        // 已经直接写入 input，无需再追加
+        currentKey = null;
+        charIndex = 0;
+        if (confirmTimer) { clearTimeout(confirmTimer); confirmTimer = null; }
+      }
+    }
+
+    function pressKey(chars) {
+      if (currentKey === chars) {
+        // 同一个键：循环切换字符
+        // 先回退上一个待确认的字符
+        input.value = input.value.slice(0, -1);
+        charIndex = (charIndex + 1) % chars.length;
+        input.value += chars[charIndex];
+      } else {
+        // 不同键：先确认上一个字符，再输入新字符
+        confirmPending();
+        currentKey = chars;
+        charIndex = 0;
+        input.value += chars[charIndex];
+      }
+      // 重置确认计时器
+      if (confirmTimer) clearTimeout(confirmTimer);
+      confirmTimer = setTimeout(() => {
+        currentKey = null;
+        charIndex = 0;
+        confirmTimer = null;
+      }, 800);
+    }
+
+    function pressSpace() {
+      confirmPending();
+      input.value += " ";
+    }
+
+    function pressBackspace() {
+      if (currentKey !== null) {
+        // 如果正在循环选字，先删除待确认字符
+        input.value = input.value.slice(0, -1);
+        currentKey = null;
+        charIndex = 0;
+        if (confirmTimer) { clearTimeout(confirmTimer); confirmTimer = null; }
+      } else if (input.value.length > 0) {
+        input.value = input.value.slice(0, -1);
+      }
+    }
+
+    function showSymbols() {
+      isSymbolMode = true;
+      keyboard.querySelector(".t9-keys").style.display = "none";
+      const toolbarLabel = keyboard.querySelector(".t9-toolbar-label");
+      if (toolbarLabel) toolbarLabel.textContent = "符号";
+
+      const symbols = ["，", "。", "！", "？", "、", "；", "：", """, """, "（", "）", "【", "】", "《", "》", "—", "…", "·", "@", "#", "¥", "&", "*", "+", "-", "/", "\\", "~", "©", "®"];
+      let existing = keyboard.querySelector(".t9-symbol-grid");
+      if (existing) existing.remove();
+
+      const grid = document.createElement("div");
+      grid.className = "t9-symbol-grid";
+      grid.innerHTML = symbols.map(s =>
+        `<button class="t9-symbol-btn" data-symbol="${s}">${s}</button>`
+      ).join("");
+      keyboard.querySelector(".t9-keys").after(grid);
+
+      grid.querySelectorAll(".t9-symbol-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          confirmPending();
+          input.value += btn.getAttribute("data-symbol");
+        });
+      });
+    }
+
+    function hideSymbols() {
+      isSymbolMode = false;
+      keyboard.querySelector(".t9-keys").style.display = "";
+      const toolbarLabel = keyboard.querySelector(".t9-toolbar-label");
+      if (toolbarLabel) toolbarLabel.textContent = "中文九键";
+      const symGrid = keyboard.querySelector(".t9-symbol-grid");
+      if (symGrid) symGrid.remove();
+    }
+
+    // 点击输入框弹出键盘
+    input.addEventListener("focus", (e) => {
+      e.target.blur(); // 阻止系统键盘
+      showKeyboard();
     });
+    input.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.target.blur();
+      showKeyboard();
+    });
+
+    // 收起键盘按钮
+    $("#t9CloseKb").addEventListener("click", hideKeyboard);
+
+    // 字母数字键
+    keyboard.querySelectorAll(".t9-key[data-chars]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const chars = btn.getAttribute("data-chars");
+        if (chars === " ") { pressSpace(); return; }
+        pressKey(chars);
+      });
+    });
+
+    // 功能键 - 退格
+    $("#t9Backspace").addEventListener("click", pressBackspace);
+
+    // 功能键 - 符号切换
+    $("#t9Symbol").addEventListener("click", () => {
+      if (isSymbolMode) hideSymbols();
+      else showSymbols();
+    });
+
+    // 点击蒙层关闭时同时收起键盘
+    const origClose = $("#modalComment .modal-mask");
+    if (origClose) {
+      origClose.addEventListener("click", hideKeyboard);
+    }
+    const closeBtn = $("#modalComment [data-close]");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", hideKeyboard);
+    }
   }
 
   function init() {
