@@ -876,6 +876,38 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
   font-weight: 600;
 }
 
+/* 头像包裹层（用于定位状态标记） */
+.teacher-avatar-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+/* 个备完成状态标记 */
+.status-badge {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  z-index: 2;
+}
+.status-badge.complete {
+  background: var(--status-green);
+}
+.status-badge.incomplete {
+  background: var(--status-red);
+}
+
+/* 个备资源类型标签区 */
+.personal-resource-types {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 0 10px;
+}
+
 /* ---------- 资源卡片操作按钮 ---------- */
 .resource-actions {
   display: flex;

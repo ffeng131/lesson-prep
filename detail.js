@@ -200,13 +200,26 @@
     });
   }
 
+  function isTeacherComplete(teacherId) {
+    const res = getResourceData();
+    const personal = (res.personal && res.personal[teacherId]) || [];
+    const hasLessonPlan = personal.some(r => r.tag === "教案");
+    const hasCourseware = personal.some(r => r.tag === "课件");
+    return hasLessonPlan && hasCourseware;
+  }
+
   function renderTeacherScroll() {
     const html = DATA.teachers.map(t => {
       const active = t.id === state.currentTeacherId;
       const isMe = t.id === DATA.currentUser.id;
+      const complete = isTeacherComplete(t.id);
+      const badgeClass = complete ? "status-badge complete" : "status-badge incomplete";
       return `
         <div class="teacher-avatar-item ${active ? "active" : ""}" data-id="${t.id}">
-          <div class="teacher-avatar ${active ? "active" : ""}">${t.avatar}</div>
+          <div class="teacher-avatar-wrap">
+            <div class="teacher-avatar ${active ? "active" : ""}">${t.avatar}</div>
+            <span class="${badgeClass}"></span>
+          </div>
           <span class="teacher-name ${active ? "active" : ""}">${isMe ? "本人" : t.name}</span>
         </div>
       `;
@@ -217,10 +230,22 @@
       el.addEventListener("click", () => {
         state.currentTeacherId = el.getAttribute("data-id");
         renderTeacherScroll();
+        renderPersonalResourceTypes();
         renderPersonalResources();
         updateUploadArea();
       });
     });
+  }
+
+  function renderPersonalResourceTypes() {
+    const res = getResourceData();
+    const personal = (res.personal && res.personal[state.currentTeacherId]) || [];
+    const requiredTypes = ["教案", "课件"];
+    const tags = requiredTypes.map(t => {
+      const exists = personal.some(r => r.tag === t);
+      return `<span class="type-tag ${exists ? "done" : "pending"}">${t}</span>`;
+    }).join("");
+    $("#personalResourceTypes").innerHTML = tags;
   }
 
   function hasRequiredResources() {
@@ -324,6 +349,8 @@
       renderResourceTypes();
     } else {
       renderPersonalResources();
+      renderPersonalResourceTypes();
+      renderTeacherScroll();
     }
     updateUploadArea();
     showToast(`成功上传 ${filesToAdd.length} 个文件`);
@@ -361,6 +388,8 @@
             renderResourceTypes();
           } else {
             renderPersonalResources();
+            renderPersonalResourceTypes();
+            renderTeacherScroll();
           }
           updateUploadArea();
           showToast("已删除");
@@ -441,6 +470,8 @@
           renderResourceTypes();
         } else {
           renderPersonalResources();
+          renderPersonalResourceTypes();
+          renderTeacherScroll();
         }
         showToast("修改成功");
       }
@@ -553,6 +584,7 @@
     renderResourceTypes();
     renderGroupResources();
     renderTeacherScroll();
+    renderPersonalResourceTypes();
     renderPersonalResources();
     bindTabs();
     bindUploads();
