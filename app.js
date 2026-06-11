@@ -43,6 +43,20 @@
     const flat  = flattenTree(nodes, 0, []);
     const container = $("#treeList");
 
+    if (flat.length === 0) {
+      container.innerHTML = `
+        <div style="padding: 48px 20px; text-align: center;">
+          <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#d1d5db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 16px;">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M3 9h18M9 3v18"/>
+          </svg>
+          <div style="font-size: 14px; color: #6b7280; margin-bottom: 6px;">暂未创建教学规划</div>
+          <div style="font-size: 13px; color: #9ca3af;">备课组长可在电脑端设置教学计划</div>
+        </div>
+      `;
+      return;
+    }
+
     container.innerHTML = flat.map(row => {
       const indentHtml = row._level > 0
         ? `<span class="tree-indent" style="margin-left:${row._level * 16}px"></span>`

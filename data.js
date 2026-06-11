@@ -32,7 +32,8 @@ window.MOCK_DATA = {
     { id: "g1", name: "一年级英语备课", subject: "英语", grade: "一年级", hostName: "冯佳华", hostId: "u1", members: 8, progress: 32 },
     { id: "g2", name: "二年级数学备课", subject: "数学", grade: "二年级", hostName: "李明",   hostId: "u2", members: 6, progress: 58 },
     { id: "g3", name: "三年级语文备课", subject: "语文", grade: "三年级", hostName: "王芳",   hostId: "u3", members: 10, progress: 74 },
-    { id: "g4", name: "四年级科学备课", subject: "科学", grade: "四年级", hostName: "张伟",   hostId: "u4", members: 5, progress: 20 }
+    { id: "g4", name: "四年级科学备课", subject: "科学", grade: "四年级", hostName: "张伟",   hostId: "u4", members: 5, progress: 20 },
+    { id: "g5", name: "五年级语文备课", subject: "语文", grade: "五年级", hostName: "冯佳华", hostId: "u1", members: 7, progress: 0 }
   ],
 
   trees: {
@@ -104,7 +105,8 @@ window.MOCK_DATA = {
     g4: [
       { id: "gw4-1", label: "第一单元 · 植物", type: "week", status: ["集","个"] },
       { id: "gw4-2", label: "第二单元 · 动物", type: "week", status: ["思"] }
-    ]
+    ],
+    g5: []
   },
 
   // 评论数据
