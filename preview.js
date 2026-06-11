@@ -262,7 +262,7 @@
       const toolbarLabel = keyboard.querySelector(".t9-toolbar-label");
       if (toolbarLabel) toolbarLabel.textContent = "符号";
 
-      const symbols = ["，", "。", "！", "？", "、", "；", "：", """, """, "（", "）", "【", "】", "《", "》", "—", "…", "·", "@", "#", "¥", "&", "*", "+", "-", "/", "\\", "~", "©", "®"];
+      const symbols = ["\uFF0C", "\u3002", "\uFF01", "\uFF1F", "\u3001", "\uFF1B", "\uFF1A", "\u201C", "\u201D", "\uFF08", "\uFF09", "\u3010", "\u3011", "\u300A", "\u300B", "\u2014", "\u2026", "\u00B7", "@", "#", "\u00A5", "&", "*", "+", "-", "/", "\\", "~", "\u00A9", "\u00AE"];
       let existing = keyboard.querySelector(".t9-symbol-grid");
       if (existing) existing.remove();
 
