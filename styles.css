@@ -932,6 +932,11 @@ h1, h2, h3 { margin: 0; font-weight: 600; }
   display: none;
 }
 
+/* ---------- 详情页紧凑布局 ---------- */
+.page-detail .app-main {
+  padding-top: 10px;
+}
+
 /* ---------- Tab 栏置顶样式 ---------- */
 .tabs-section-top {
   background: #fff;
